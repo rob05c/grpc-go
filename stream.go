@@ -288,8 +288,13 @@ func newClientStreamWithParams(ctx context.Context, desc *StreamDesc, cc *Client
 		return nil, err
 	}
 
+	host := cc.authority
+	if mc.Host != "" {
+		host = mc.Host
+	}
+
 	callHdr := &transport.CallHdr{
-		Host:           cc.authority,
+		Host:           host,
 		Method:         method,
 		ContentSubtype: c.contentSubtype,
 		DoneFunc:       doneFunc,
