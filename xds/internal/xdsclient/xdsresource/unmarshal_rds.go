@@ -302,6 +302,10 @@ func routesProtoToSlice(routes []*v3routepb.Route, csps map[string]clusterspecif
 		case *v3routepb.Route_Route:
 			route.WeightedClusters = make(map[string]WeightedCluster)
 			action := r.GetRoute()
+			route.HostRewriteLiteral = action.GetHostRewriteLiteral()
+
+			fmt.Printf("DEBUGR0 routesProtoToSlice route.HostRewriteLiteral '%s'\n", route.HostRewriteLiteral)
+			// logger.Errorf("DEBUGR0 logger routesProtoToSlice route.HostRewriteLiteral '%s'\n", route.HostRewriteLiteral)
 
 			// Hash Policies are only applicable for a Ring Hash LB.
 			hp, err := hashPoliciesProtoToSlice(action.HashPolicy)

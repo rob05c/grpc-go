@@ -744,7 +744,8 @@ func (t *http2Client) NewStream(ctx context.Context, callHdr *CallHdr) (*Stream,
 	// for server authentication.
 	if t.address.ServerName != "" {
 		newCallHdr := *callHdr
-		newCallHdr.Host = t.address.ServerName
+		fmt.Printf("DEBUGR1 http2Client.NewStream callHdr.Host '%s' t.address.ServerName '%s'\n", newCallHdr.Host, t.address.ServerName)
+		// newCallHdr.Host = t.address.ServerName
 		callHdr = &newCallHdr
 	}
 
