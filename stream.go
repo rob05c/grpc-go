@@ -21,6 +21,7 @@ package grpc
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"math"
 	"strconv"
@@ -288,8 +289,16 @@ func newClientStreamWithParams(ctx context.Context, desc *StreamDesc, cc *Client
 		return nil, err
 	}
 
+	fmt.Printf("DEBUGR0 printer newClientStreamWithParams cc.authority '%s' mc.Host '%s'\n", cc.authority, mc.Host)
+	logger.Errorf("DEBUGR0 printer newClientStreamWithParams cc.authority '%s' mc.Host '%s'\n", cc.authority, mc.Host)
+
+	host := cc.authority
+	if mc.Host != "" {
+		host = mc.Host
+	}
+
 	callHdr := &transport.CallHdr{
-		Host:           cc.authority,
+		Host:           host,
 		Method:         method,
 		ContentSubtype: c.contentSubtype,
 		DoneFunc:       doneFunc,
